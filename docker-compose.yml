@@ -1,8 +1,17 @@
-version: '3.7'
+version: "3.9"
+
+networks:
+  freedom-of-internet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
 
 services:
   openvpn:
     container_name: "openvpn-server"
+    hostname: "openvpn-server.${hostname}"
     build:
       context: ./openvpn
       dockerfile: Dockerfile
@@ -13,8 +22,15 @@ services:
     restart: always
     ports:
       - "${OPENVPN_PORT}:1194/udp"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      freedom-of-internet:
+        ipv4_address: 10.5.0.2
+
   shadowsocks:
     container_name: "shadowsocks-server"
+    hostname: "shadowsocks-server.${hostname}"
     build:
       context: ./shadowsocks
       dockerfile: Dockerfile
@@ -24,3 +40,37 @@ services:
     ports:
       - "${SHADOWSOCKS_PORT}:14574/tcp"
       - "${SHADOWSOCKS_PORT}:14574/udp"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      freedom-of-internet:
+        ipv4_address: 10.5.0.3
+
+  pihole:
+    container_name: "pihole-server"
+    hostname: "pihole-server.${hostname}"
+    build:
+      context: ./DNSProxy
+      dockerfile: Dockerfile
+    environment:
+      ServerIP: "${SERVER_IP}"
+      WEBPASSWORD: "${PI_HOLE_PASSWORD}"
+    volumes:
+      - "./DNSProxy/pihole/pihole/:/etc/pihole/"
+      - "./DNSProxy/pihole/dnsmasq.d/:/etc/dnsmasq.d/"
+    env_file:
+        - .env
+    restart: always
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "${DNS_PORT}:53/tcp"
+      - "${DNS_PORT}:53/udp"
+      - "${BOOTP_PORT}:67/udp"
+      - "${PI_HOLE_HTTP_PORT}:80/tcp"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      freedom-of-internet:
+        ipv4_address: 10.5.0.4
