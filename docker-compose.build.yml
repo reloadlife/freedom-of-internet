@@ -12,7 +12,9 @@ services:
   openvpn:
     container_name: "openvpn-server"
     hostname: "openvpn-server.${hostname}"
-    image: ghcr.io/reloadlife/freedom-of-internet/openvpn
+    build:
+      context: ./openvpn
+      dockerfile: Dockerfile
     env_file:
         - .env
     volumes:
