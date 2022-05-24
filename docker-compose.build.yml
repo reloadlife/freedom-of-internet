@@ -116,14 +116,9 @@ services:
     build:
       context: ./MTProtoTelegramProxy
       dockerfile: Dockerfile
+    restart: unless-stopped
     volumes:
       - ./MTProtoTelegramProxy/config.py:/home/tgproxy/config.py
       - ./MTProtoTelegramProxy/mtprotoproxy.py:/home/tgproxy/mtprotoproxy.py
       - /etc/localtime:/etc/localtime:ro
-    env_file:
-        - .env
-    ports:
-        - "${TELEGRAM_PROXY_PORT}:8585"
-    networks:
-      freedom-of-internet:
-        ipv4_address: 10.5.0.6
+    network_mode: "host"
