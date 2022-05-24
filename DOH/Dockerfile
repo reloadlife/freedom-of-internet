@@ -1,0 +1,1 @@
+FROM satishweb/doh-server:latest

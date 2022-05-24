@@ -9,6 +9,7 @@ networks:
           gateway: 10.5.0.1
 
 services:
+
   openvpn:
     container_name: "openvpn-server"
     hostname: "openvpn-server.${hostname}"
@@ -20,6 +21,9 @@ services:
     volumes:
       - ./openvpn/data/:/etc/openvpn
     restart: always
+    dns:
+      - 10.5.0.4
+      - 1.1.1.1
     ports:
       - "${OPENVPN_PORT}:1194/udp"
     cap_add:
@@ -37,6 +41,9 @@ services:
     env_file:
         - .env
     restart: always
+    dns:
+      - 10.5.0.4
+      - 1.1.1.1
     ports:
       - "${SHADOWSOCKS_PORT}:14574/tcp"
       - "${SHADOWSOCKS_PORT}:14574/udp"
@@ -74,3 +81,25 @@ services:
     networks:
       freedom-of-internet:
         ipv4_address: 10.5.0.4
+
+  doh:
+    container_name: "doh-server"
+    hostname: "doh-server.${hostname}"
+    build:
+      context: ./DOH
+      dockerfile: Dockerfile
+    env_file:
+        - .env
+    environment:
+      UPSTREAM_DNS_SERVER: "udp:10.5.0.4:53"
+      DOH_HTTP_PREFIX: "/dns-query"
+      DOH_SERVER_LISTEN: ":${DOH_SERVER_HTTPS_PORT}"
+      DOH_SERVER_TIMEOUT: "10"
+      DOH_SERVER_TRIES: "3"
+      DOH_SERVER_VERBOSE: "false"
+    ports:
+        - "${DOH_SERVER_HTTPS_PORT}:8053/tcp"
+        - "${DOH_SERVER_HTTPS_PORT}:8053/udp"
+    networks:
+      freedom-of-internet:
+        ipv4_address: 10.5.0.5
