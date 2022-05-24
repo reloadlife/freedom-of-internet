@@ -1,7 +1,7 @@
 import hashlib
 
 
-PORT = 8585
+PORT = 12
 
 # name -> secret (32 hex chars)
 # change this secrets ! :)
