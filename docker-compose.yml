@@ -106,7 +106,7 @@ services:
   mtproto-telegram-proxy:
     container_name: "mtproto-telegram-proxy-server"
     hostname: "mtproto-telegram-proxy-server.${hostname}"
-    image: ghcr.io/reloadlife/freedom-of-internet/mtproto-protxy
+    image: ghcr.io/reloadlife/freedom-of-internet/mtproto-proxy
     volumes:
       - ./MTProtoTelegramProxy/config.py:/home/tgproxy/config.py
       - ./MTProtoTelegramProxy/mtprotoproxy.py:/home/tgproxy/mtprotoproxy.py

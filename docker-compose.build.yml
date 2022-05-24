@@ -12,6 +12,7 @@ services:
   openvpn:
     container_name: "openvpn-server"
     hostname: "openvpn-server.${hostname}"
+    image: ghcr.io/reloadlife/freedom-of-internet/openvpn
     build:
       context: ./openvpn
       dockerfile: Dockerfile
@@ -38,6 +39,7 @@ services:
   shadowsocks:
     container_name: "shadowsocks-server"
     hostname: "shadowsocks-server.${hostname}"
+    image: ghcr.io/reloadlife/freedom-of-internet/shadowsocks
     build:
       context: ./shadowsocks
       dockerfile: Dockerfile
@@ -110,6 +112,7 @@ services:
   mtproto-telegram-proxy:
     container_name: "mtproto-telegram-proxy-server"
     hostname: "mtproto-telegram-proxy-server.${hostname}"
+    image: ghcr.io/reloadlife/freedom-of-internet/mtproto-proxy
     build:
       context: ./MTProtoTelegramProxy
       dockerfile: Dockerfile
