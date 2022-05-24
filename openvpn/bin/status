@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$DEBUG" == "1" ]; then
+	set -x
+fi
+
+set -e
+
+tail -F /tmp/openvpn-status.log
