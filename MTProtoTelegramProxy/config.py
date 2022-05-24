@@ -4,6 +4,7 @@ import hashlib
 PORT = 8585
 
 # name -> secret (32 hex chars)
+# change this secrets ! :)
 USERS = {
     "public": hashlib.md5(b'Public').hexdigest(),
     "family": hashlib.md5(b'family').hexdigest(),
@@ -25,7 +26,8 @@ MODES = {
 
 # The domain for TLS mode, bad clients are proxied there
 # Use random existing domain, proxy checks it on start
-TLS_DOMAIN = "mamad.dev"
+# and this tls domain
+TLS_DOMAIN = "google.com"
 
 # Tag for advertising, obtainable from @MTProxybot
 AD_TAG = "59666f315c64c825b6c017f4f170afca"
