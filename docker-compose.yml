@@ -98,8 +98,8 @@ services:
       DOH_SERVER_TRIES: "3"
       DOH_SERVER_VERBOSE: "false"
     ports:
-        - "${DOH_SERVER_HTTPS_PORT}:8053/tcp"
-        - "${DOH_SERVER_HTTPS_PORT}:8053/udp"
+        - "${DOH_SERVER_HTTPS_PORT}:${DOH_SERVER_HTTPS_PORT}/tcp"
+        - "${DOH_SERVER_HTTPS_PORT}:${DOH_SERVER_HTTPS_PORT}/udp"
     networks:
       freedom-of-internet:
         ipv4_address: 10.5.0.5
