@@ -11,6 +11,4 @@ WORKDIR /home/tgproxy/
 
 COPY --chown=tgproxy mtprotoproxy.py config.py /home/tgproxy/
 
-EXPOSE 8585
-
 CMD ["python3", "mtprotoproxy.py"]

@@ -106,11 +106,11 @@ services:
   mtproto-telegram-proxy:
     container_name: "mtproto-telegram-proxy-server"
     hostname: "mtproto-telegram-proxy-server.${hostname}"
-    image: ghcr.io/reloadlife/freedom-of-internet/mtproto-proxy
+    build:
+      context: ./MTProtoTelegramProxy
+      dockerfile: Dockerfile
     volumes:
       - ./MTProtoTelegramProxy/config.py:/home/tgproxy/config.py
       - ./MTProtoTelegramProxy/mtprotoproxy.py:/home/tgproxy/mtprotoproxy.py
       - /etc/localtime:/etc/localtime:ro
-    env_file:
-        - .env
     network_mode: "host"
