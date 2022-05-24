@@ -1,0 +1,11 @@
+{
+    "server": "0.0.0.0",
+    "mode": "tcp_and_udp",
+    "server_port": 14574,
+    "password": "THIS_IS_A_STRONG_PASSWORD_YOU_DEFINITELY_DO_NOT_NEED_TO_CHANGE_ID",
+    "timeout": 300,
+    "method": "xchacha20-ietf-poly1305",
+    "fast_open": true,
+    "workers": 60,
+    "prefer_ipv6": false
+}
