@@ -103,3 +103,21 @@ services:
     networks:
       freedom-of-internet:
         ipv4_address: 10.5.0.5
+
+  mtproto-telegram-proxy:
+    container_name: "mtproto-telegram-proxy-server"
+    hostname: "mtproto-telegram-proxy-server.${hostname}"
+    build:
+      context: ./MTProtoTelegramProxy
+      dockerfile: Dockerfile
+    volumes:
+      - ./MTProtoTelegramProxy/config.py:/home/tgproxy/config.py
+      - ./MTProtoTelegramProxy/mtprotoproxy.py:/home/tgproxy/mtprotoproxy.py
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+        - .env
+    ports:
+        - "${TELEGRAM_PROXY_PORT}:8585"
+    networks:
+      freedom-of-internet:
+        ipv4_address: 10.5.0.6
