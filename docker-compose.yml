@@ -32,9 +32,7 @@ services:
   shadowsocks:
     container_name: "shadowsocks-server"
     hostname: "shadowsocks-server.${hostname}"
-    build:
-      context: ./shadowsocks
-      dockerfile: Dockerfile
+    image: ghcr.io/reloadlife/freedom-of-internet/shadowsocks
     env_file:
         - .env
     restart: always
@@ -104,9 +102,7 @@ services:
   mtproto-telegram-proxy:
     container_name: "mtproto-telegram-proxy-server"
     hostname: "mtproto-telegram-proxy-server.${hostname}"
-    build:
-      context: ./MTProtoTelegramProxy
-      dockerfile: Dockerfile
+    image: ghcr.io/reloadlife/freedom-of-internet/mtproto-protxy
     volumes:
       - ./MTProtoTelegramProxy/config.py:/home/tgproxy/config.py
       - ./MTProtoTelegramProxy/mtprotoproxy.py:/home/tgproxy/mtprotoproxy.py
